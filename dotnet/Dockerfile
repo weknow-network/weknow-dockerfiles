@@ -2,7 +2,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 ARG PROJECT
 ARG ENTRY_PREFIX
 RUN --mount=type=secret,id=AUTH_TOKEN \
-  cat /run/secrets/AUTH_TOKEN
+    export AUTH_TOKEN=$(cat /run/secrets/AUTH_TOKEN) \
+    cat /run/secrets/AUTH_TOKEN
 
 # ARG USER_NAME
 # ARG AUTH_TOKEN
