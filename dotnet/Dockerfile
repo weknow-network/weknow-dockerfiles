@@ -32,6 +32,8 @@ RUN rm nuget.config
 COPY ./docker-file/dotnet/nuget.config.template.xml /src/nuget.config
 # RUN sed -i -e "s/USER/$NUGET_USER_NAME/g" -e "s/PW/$NUGET_AUTH_TOKEN/g" /src/nuget.config
 
+RUN cat /src/nuget.config
+
 # RUN dotnet nuget add source --username bnayae --password $NUGET_AUTH_TOKEN --store-password-in-clear-text --name github "https://nuget.pkg.github.com/weknow-network/index.json"
 # RUN dotnet nuget add source --username bnayae --password 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 --store-password-in-clear-text --name github "https://nuget.pkg.github.com/weknow-network/index.json"
 
