@@ -4,10 +4,10 @@ ARG ENTRY_PREFIX
 ARG NUGET_AUTH_TOKEN
 ARG NUGET_USER_NAME
 
-RUN echo PROJECT=$PROJECT
-RUN echo ENTRY_PREFIX=$ENTRY_PREFIX
-RUN echo NUGET_USER_NAME=$NUGET_USER_NAME
-RUN echo NUGET_AUTH_TOKEN=$NUGET_AUTH_TOKEN
+# RUN echo PROJECT=$PROJECT
+# RUN echo ENTRY_PREFIX=$ENTRY_PREFIX
+# RUN echo NUGET_USER_NAME=$NUGET_USER_NAME
+# RUN echo NUGET_AUTH_TOKEN=$NUGET_AUTH_TOKEN
 
 WORKDIR /app
 EXPOSE 80
@@ -28,7 +28,7 @@ WORKDIR /src
 COPY ["./", "/src"]
 
 RUN rm nuget.config
-COPY ./gitlab-ci/nuget.config.template.xml /src/nuget.config
+COPY ./nuget.config.template.xml /src/nuget.config
 RUN sed -i -e "s/USER/$NUGET_USER_NAME/g" -e "s/PW/$NUGET_AUTH_TOKEN/g" /src/nuget.config
 
 RUN dotnet restore "$PROJECT/$PROJECT.csproj" --configfile "/src/nuget.config"
