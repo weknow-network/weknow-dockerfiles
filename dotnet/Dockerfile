@@ -28,9 +28,9 @@ WORKDIR /src
 COPY ["./", "/src"]
 
      
-RUN echo $(ls -at .)
+RUN echo $(ls -at ./docker-file/dotnet)
 RUN rm nuget.config
-COPY ./nuget.config.template.xml /src/nuget.config
+COPY ./docker-file/dotnet/nuget.config.template.xml /src/nuget.config
 RUN sed -i -e "s/USER/$NUGET_USER_NAME/g" -e "s/PW/$NUGET_AUTH_TOKEN/g" /src/nuget.config
 
 RUN dotnet restore "$PROJECT/$PROJECT.csproj" --configfile "/src/nuget.config"
