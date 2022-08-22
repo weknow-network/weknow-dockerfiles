@@ -3,17 +3,11 @@ ARG PROJECT
 ARG ENTRY_PREFIX
 ARG NUGET_USER_NAME
 ARG NUGET_AUTH_TOKEN
-ARG TKN
 
 # RUN echo PROJECT=$PROJECT
 # RUN echo ENTRY_PREFIX=$ENTRY_PREFIX
-RUN echo off
-RUN echo -------------------------------------------
 RUN echo NUGET_USER_NAME=$NUGET_USER_NAME
 RUN echo NUGET_AUTH_TOKEN=$NUGET_AUTH_TOKEN
-RUN echo TKN=$TKN
-RUN echo -------------------------------------------
-RUN echo on
 
 WORKDIR /app
 EXPOSE 80
@@ -32,7 +26,6 @@ ARG NUGET_USER_NAME
 
 WORKDIR /src
 COPY ["./", "/src"]
-
      
 # RUN echo $(ls -at ./docker-file/dotnet)
 # RUN rm nuget.config
