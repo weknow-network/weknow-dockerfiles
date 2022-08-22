@@ -9,8 +9,8 @@
   </packageSources>
   <packageSourceCredentials>
     <GitHubPrivateRegistry>
-        <add key="Username" value="bnayae" />
-        <add key="ClearTextPassword" value="PW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" />
+        <add key="Username" value="USER" />
+        <add key="ClearTextPassword" value="PW" />
     </GitHubPrivateRegistry>
   </packageSourceCredentials>
 </configuration>
