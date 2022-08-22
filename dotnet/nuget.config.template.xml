@@ -7,10 +7,4 @@
 			 protocolVersion="3" />
     <add key="GitHubPrivateRegistry" value="https://nuget.pkg.github.com/weknow-network/index.json" />
   </packageSources>
-  <packageSourceCredentials>
-    <GitHubPrivateRegistry>
-        <add key="Username" value="USER" />
-        <add key="ClearTextPassword" value="PW" />
-    </GitHubPrivateRegistry>
-  </packageSourceCredentials>
 </configuration>
