@@ -2,8 +2,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 ARG PROJECT
 ARG ENTRY_PREFIX
 RUN --mount=type=secret,id=REGISTRY_AUTH_TOKEN 
-RUN ls -lh .
-RUN ls -lh /
+RUN ls -at /run/secrets
 
 RUN cat /run/secrets/REGISTRY_AUTH_TOKEN
 RUN export REGISTRY_AUTH_TOKEN=$(cat /run/secrets/REGISTRY_AUTH_TOKEN) \
