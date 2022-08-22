@@ -1,17 +1,17 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 ARG PROJECT
 ARG ENTRY_PREFIX
-RUN --mount=type=secret,id=AUTH_TOKEN \
-    export AUTH_TOKEN=$(cat /run/secrets/AUTH_TOKEN) \
-    cat /run/secrets/AUTH_TOKEN
+RUN --mount=type=secret,id=REGISTRY_AUTH_TOKEN 
+RUN cat /run/secrets/REGISTRY_AUTH_TOKEN
+RUN export REGISTRY_AUTH_TOKEN=$(cat /run/secrets/REGISTRY_AUTH_TOKEN) \
 
 # ARG USER_NAME
-# ARG AUTH_TOKEN
+# ARG REGISTRY_AUTH_TOKEN
 
 # RUN echo PROJECT=$PROJECT
 # RUN echo ENTRY_PREFIX=$ENTRY_PREFIX
 # RUN echo USER_NAME=$USER_NAME
-# RUN echo AUTH_TOKEN=$AUTH_TOKEN
+# RUN echo REGISTRY_AUTH_TOKEN=$REGISTRY_AUTH_TOKEN
 
 WORKDIR /app
 EXPOSE 80
@@ -26,7 +26,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG PROJECT
 ARG ENTRY_PREFIX
 # ARG USER_NAME
-# ARG AUTH_TOKEN
+# ARG REGISTRY_AUTH_TOKEN
 
 WORKDIR /src
 COPY ["./", "/src"]
@@ -34,11 +34,11 @@ COPY ["./", "/src"]
 # RUN echo $(ls -at ./docker-file/dotnet)
 # RUN rm nuget.config
 # COPY ./docker-file/dotnet/nuget.config.template.xml /src/nuget.config
-# RUN sed -i -e "s/USER/$USER_NAME/g" -e "s/PW/$AUTH_TOKEN/g" /src/nuget.config
+# RUN sed -i -e "s/USER/$USER_NAME/g" -e "s/PW/$REGISTRY_AUTH_TOKEN/g" /src/nuget.config
 
 # RUN cat /src/nuget.config
 
-RUN dotnet nuget add source --username $USER_NAME --password $AUTH_TOKEN --store-password-in-clear-text --name github "https://nuget.pkg.github.com/weknow-network/index.json"
+RUN dotnet nuget add source --username $USER_NAME --password $REGISTRY_AUTH_TOKEN --store-password-in-clear-text --name github "https://nuget.pkg.github.com/weknow-network/index.json"
 
 # RUN dotnet restore "$PROJECT/$PROJECT.csproj" --configfile "/src/nuget.config"
 RUN dotnet restore "$PROJECT/$PROJECT.csproj"
