@@ -3,7 +3,9 @@ ARG PROJECT
 ARG ENTRY_PREFIX
 RUN --mount=type=secret,id=REGISTRY_AUTH_TOKEN \
     --mount=type=secret,id=github_token \
-    --mount=type=secret,id=TEST 
+    --mount=type=secret,id=TEST \
+    export TEST=$(cat /run/secrets/TEST) && \
+    echo $TEST
 RUN ls -at /run/secrets
 
 RUN cat /run/secrets/REGISTRY_AUTH_TOKEN
@@ -37,6 +39,7 @@ COPY ["./", "/src"]
      
 # RUN echo $(ls -at ./docker-file/dotnet)
 # RUN rm nuget.config
+# RUN sed -i -e "s/USER/$USER_NAME/g" -e "s/PW/${{ }}/g" ./docker-file/dotnet/nuget.config.template.xml
 # COPY ./docker-file/dotnet/nuget.config.template.xml /src/nuget.config
 # RUN sed -i -e "s/USER/$USER_NAME/g" -e "s/PW/$REGISTRY_AUTH_TOKEN/g" /src/nuget.config
 
