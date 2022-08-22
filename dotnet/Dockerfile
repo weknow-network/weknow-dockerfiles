@@ -21,8 +21,8 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 ARG PROJECT
 ARG ENTRY_PREFIX
-ARG NUGET_AUTH_TOKEN
 ARG NUGET_USER_NAME
+ARG NUGET_AUTH_TOKEN
 
 WORKDIR /src
 COPY ["./", "/src"]
@@ -34,7 +34,7 @@ COPY ["./", "/src"]
 
 RUN cat /src/nuget.config
 
-RUN dotnet nuget add source --username bnayae --password $NUGET_AUTH_TOKEN --store-password-in-clear-text --name github "https://nuget.pkg.github.com/weknow-network/index.json"
+RUN dotnet nuget add source --username $NUGET_USER_NAME --password $NUGET_AUTH_TOKEN --store-password-in-clear-text --name github "https://nuget.pkg.github.com/weknow-network/index.json"
 
 RUN dotnet restore "$PROJECT/$PROJECT.csproj" --configfile "/src/nuget.config"
 COPY . .
